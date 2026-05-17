@@ -118,7 +118,7 @@ curl -s "https://api.github.com/repos/{owner}/{repo}" | jq '...'
 
 降低误触发成本:即使 Claude 自动触发了,也不直接跑 3 agent 并行 + 写盘的重操作,而是先给一份 30 秒速览,把"要不要继续"的决定权交给用户。
 
-1. **先查历史**:`ls .../00_全局资产/github-analyzer/ | grep -i "{owner}-{repo}"`,有就直接展示上次结论 → AskUserQuestion(用上次结论 / 重新速览 / 跑完整流程)。无历史继续下一步。
+1. **先查历史**:`ls .../00_全局资产/github-analyses/ | grep -i "{owner}-{repo}"`,有就直接展示上次结论 → AskUserQuestion(用上次结论 / 重新速览 / 跑完整流程)。无历史继续下一步。
 
 2. **只跑 Agent 1 的最小子集**(不启动 Agent 2 / 3,不写 INDEX,不写完整报告):
 

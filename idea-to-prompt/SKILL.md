@@ -1,34 +1,19 @@
 ---
 name: idea-to-prompt
 description: |
-  把模糊想法变成可直接粘贴给任意 AI 工具执行的精确 Prompt。
-  通用意图识别 + 深度对话 + 六心法追问 + 目标工具适配。
+  把模糊想法变成可直接粘贴给任意 AI 工具执行的精确 Prompt。适用于"先有想法、再用 AI 工具去做"但需求还没成型的场景,覆盖软件/网站/小程序/app/skill/自动化、PPT/报告/方案/文案/脚本、AI 生图/生视频/3D 资产、活动/课程/社群/运营策划等。
 
-  适用所有"先有想法、再用 AI 工具去做"的场景:
-  - 开发类: 软件/网站/小程序/app/skill/工具/自动化 → Claude Code / Codex / Cursor / v0 / Bolt
-  - 长内容类: PPT/报告/方案/文案/视频脚本 → ChatGPT / Claude / Gamma / Canva
-  - 视觉素材类: AI 生图/AI 生视频/3D 资产 → Midjourney / nano banana / gpt-image / Sora / 可灵 / 即梦 / Seedance
-  - 策划类: 活动/课程/社群/流程/运营方案 → ChatGPT / Claude / Notion AI
+  触发词包括但不限于:我想做个东西、帮我做个、我有个想法、我想开发、帮我把这个想法实现、我要做个工具、做个网站/小程序/app、帮我理一下思路、先聊一下需求、有个产品想法、帮我做 PPT/方案/报告/海报/视频/图片/文案/课程/活动策划。
 
-  触发词包括但不限于: 我想做个东西、帮我做个、我有个想法、我想开发、帮我把这个想法实现、
-  我要做个工具、我想做个网站/小程序/app、帮我理一下思路、先聊一下需求、有个产品想法、
-  帮我做个 PPT、我想做一份方案/报告、帮我做个海报、我想做个视频、帮我生张图、帮我生段视频、
-  帮我写个文案、我想办个活动、帮我设计一个、我想做个课程、帮我策划一下。
+  不要用于:纯调研(用 research)、纯写作(用 khazix-writer)、纯竞品分析(用 hv-analysis)、已有明确 spec 只需执行(用 writing-plans)。
 
-  不要用于: 纯调研(用 research)、纯写作(用 khazix-writer)、纯竞品分析(用 hv-analysis)、
-  已有明确 spec 只需要执行的场景(用 writing-plans)。
+  **MUST 不触发**:
+  - 当前在 git 仓库 + 要做 software feature/component/behavior 改动 → 让位给 brainstorming。
+  - cwd 已在某 `XX_项目名/` 项目目录(存在 `项目开发日志.md`) → 让位给 project-init 补建/刷新。
+  - cwd 或 `~/Desktop` 已有 `Prompt-*.md` + 用户说"开始做/开干/建项目" → 让位给 project-init 接力。
+  - 任务一句话能说清(hello world、修 bug、快图、改文案、简单 PPT) → 直接交给对应 skill,不要拦截走六心法。
 
-  **MUST 不触发**(让位给更专门的 skill):
-  - 当前在 git 仓库 + 要做 software feature / component / behavior 改动 → 让位给 **brainstorming**
-    (它自带 spec → writing-plans 的开发流水线,且会 commit 进 git。本 skill 不假设 git)
-  - cwd 已在某 `XX_项目名/` 项目目录(存在 `项目开发日志.md`)→ 让位给 **project-init** 的补建/刷新模式
-  - cwd 或 `~/Desktop` 已存在 `Prompt-*.md` + 用户说"开始做 / 开干 / 建项目" → 让位给 **project-init** 接力
-  - 任务一句话能说清(写个 hello world / 修个 bug / 生张快图 / 改个文案 / 简单 5 页 PPT)
-    → 直接交给对应 skill(pptx / ljg-card / khazix-writer 等),不要拦截走六心法
-
-  **本 skill 真正的价值场景**:用户有想法但还没成型、还没建项目、需要先聊明白才能动手——
-  尤其是跨"软件 / 长内容 / 视觉素材 / 策划"四类、最终输出要喂给任意 AI 工具(不限于代码工具)。
-  如果用户已经知道要做什么、用什么工具,本 skill 就是 overkill。
+  价值场景:用户有想法但还没成型、还没建项目、需要先聊明白,且最终输出要喂给任意 AI 工具。
 ---
 
 # Idea to Prompt — 把想法变成 AI 可执行的指令
