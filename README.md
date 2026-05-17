@@ -6,7 +6,7 @@
 
 | Skill | 说明 | 触发方式 |
 |-------|------|----------|
-| [github-analyzer](./github-analyzer/) | GitHub 开源项目分析与评估。帮你快速判断一个开源项目"对我有没有用、值不值得装" | `/github-analyzer` 或分享 GitHub 链接/截图 |
+| [github-analyzer](./github-analyzer/) | GitHub 开源项目分析与评估。多来源识别 + 并行调研 + 量化评分 + 竞品对比 + 批量汇总 | `/github-analyzer` 或分享 GitHub 链接/截图 |
 
 ## 如何使用
 
