@@ -31,7 +31,7 @@ allowed-tools: Bash Read Write WebSearch Agent AskUserQuestion
 
 你正在执行一次 GitHub 项目分析。目标:**帮用户判断「这个项目对我有没有用、值不值得花时间装/学/抄」**。
 
-最终产物是一份持久化的报告,落到 `/Users/sunshaocong/Desktop/MacBookpro备份内容/00_全局资产/github-analyses/`,长期积累形成用户的开源工具知识库。
+最终产物是一份持久化的报告,落到 `/Users/sunshaocong/Desktop/韶聪workspace/00_全局资产/github-analyses/`,长期积累形成用户的开源工具知识库。
 
 ---
 
@@ -47,10 +47,10 @@ gh auth status >/dev/null 2>&1 && echo "GH_OK" || echo "GH_MISSING"
 ls ~/.claude/skills/ 2>/dev/null
 ls ~/.claude/agents/ 2>/dev/null
 cat /Users/sunshaocong/.ai-os/skills/_SKILL_INDEX.md 2>/dev/null
-ls -d "/Users/sunshaocong/Desktop/MacBookpro备份内容/"[0-9][0-9]_* 2>/dev/null | grep -vE '/(00|99)_'
+ls -d "/Users/sunshaocong/Desktop/韶聪workspace/"[0-9][0-9]_* 2>/dev/null | grep -vE '/(00|99)_'
 
 # 3. 历史分析报告
-ls "/Users/sunshaocong/Desktop/MacBookpro备份内容/00_全局资产/github-analyses/" 2>/dev/null
+ls "/Users/sunshaocong/Desktop/韶聪workspace/00_全局资产/github-analyses/" 2>/dev/null
 
 # 4. 当前项目上下文(如有)
 test -f ./项目开发日志.md && head -20 ./项目开发日志.md
@@ -179,7 +179,7 @@ curl -s "https://api.github.com/repos/{owner}/{repo}" | jq '...'
 对每个待分析的项目,先查:
 
 ```bash
-ls "/Users/sunshaocong/Desktop/MacBookpro备份内容/00_全局资产/github-analyses/" \
+ls "/Users/sunshaocong/Desktop/韶聪workspace/00_全局资产/github-analyses/" \
   2>/dev/null | grep -i "{owner}-{repo}"
 ```
 
@@ -231,7 +231,7 @@ ls "/Users/sunshaocong/Desktop/MacBookpro备份内容/00_全局资产/github-ana
   - license = null / Other → 「⚠️ 无明确 license,法律上默认禁止再分发」
   - 有公开 security advisories → 「⚠️ 有未修复安全公告」
   - fork=true 且原项目活跃 → 「⚠️ 这是 fork,建议看原项目」
-- **Stars / Forks / 主语言**
+- **Stars / Forks / Fork-Star 比 / 主语言**
 - **活跃度判定**:活跃(过去 90 天 > 20 commit)/ 低活跃(1-20)/ 僵尸(0)。三个数字都给:近 4w / 近 12w / 近 52w
 - **License**:协议名 + 一句话翻译(MIT=随便用 / Apache-2.0=随便用+保留专利条款 / GPL=改了要开源 / AGPL=连 SaaS 用都要开源 / 无 license=默认禁用)
 - **核心功能**:3-8 个点
@@ -316,12 +316,21 @@ ls "/Users/sunshaocong/Desktop/MacBookpro备份内容/00_全局资产/github-ana
 | 维度 | 说明 |
 |------|------|
 | 需求相关度 | 与用户意图 + 现有工具的匹配 |
-| 项目成熟度 | 活跃度 + 贡献者分散度 + Issue 处理质量 |
+| 项目成熟度 | 活跃度 + 贡献者分散度 + Issue 处理质量 + fork 绝对数(越高说明实际使用/二次开发多) + fork/star 比值(高=实用型, 低=收藏型, 异常高警惕 fork farm) |
 | 上手成本(反向) | 安装 + 学习曲线,越低分越高 |
 | 现有体系互补性 | 与已装 skill / 工具的重叠度,互补越高分越高 |
 | 长期维护信心 | 贡献者分散度 + 商业模式可持续性 |
 | 用户视角风险(反向) | License / 安全 / 隐私 / 远程依赖,风险越低分越高 |
 | **加权总分** | 六项均值 |
+
+#### Fork-Star 比参考区间(fork_count / stargazers_count)
+
+| 区间 | 含义 | 成熟度影响 |
+|------|------|-----------|
+| < 0.05 | 纯收藏型,实际使用者少 | 不加不减 |
+| 0.05 - 0.3 | 正常范围 | 适度加分 |
+| > 0.3 | 高度实用型,大量二次开发 | 显著加分 |
+| > 0.8 且 star < 100 | 可疑(可能 fork farm) | 减分 + 提示用户 |
 
 ### 报告模板
 
@@ -341,7 +350,7 @@ ls "/Users/sunshaocong/Desktop/MacBookpro备份内容/00_全局资产/github-ana
 
 ## 项目概览
 - **定位**:{一句话}
-- **Stars** / **Forks** / **语言**
+- **Stars** / **Forks** / **Fork-Star 比** / **语言**
 - **活跃度**:{活跃 / 低活跃 / 僵尸} — 近 4w: X / 近 12w: Y / 近 52w: Z commit
 - **License**:{协议 + 一句话翻译}
 
@@ -396,14 +405,14 @@ ls "/Users/sunshaocong/Desktop/MacBookpro备份内容/00_全局资产/github-ana
 
 写报告到:
 ```
-/Users/sunshaocong/Desktop/MacBookpro备份内容/00_全局资产/github-analyses/YYYY-MM-DD-{owner}-{repo}.md
+/Users/sunshaocong/Desktop/韶聪workspace/00_全局资产/github-analyses/YYYY-MM-DD-{owner}-{repo}.md
 ```
 
 目录不存在先 `mkdir -p`。
 
 同步维护 INDEX 文件:
 ```
-/Users/sunshaocong/Desktop/MacBookpro备份内容/00_全局资产/github-analyses/INDEX.md
+/Users/sunshaocong/Desktop/韶聪workspace/00_全局资产/github-analyses/INDEX.md
 ```
 
 格式:
@@ -442,10 +451,10 @@ ls "/Users/sunshaocong/Desktop/MacBookpro备份内容/00_全局资产/github-ana
 ```markdown
 ## 本次分析汇总
 
-| 排名 | 项目 | ⭐ | 总分 | 建议 | 风险 | 一句话理由 |
-|------|------|-----|------|------|------|-----------|
-| 1 | xxx | xxk | 8.5 | 推荐 | 无 | ... |
-| 2 | yyy | xxk | 7.2 | 可选 | AGPL | ... |
+| 排名 | 项目 | ⭐ | 🍴 | 🍴/⭐ | 总分 | 建议 | 风险 | 一句话理由 |
+|------|------|-----|-----|-------|------|------|------|-----------|
+| 1 | xxx | xxk | xk | 0.xx | 8.5 | 推荐 | 无 | ... |
+| 2 | yyy | xxk | xk | 0.xx | 7.2 | 可选 | AGPL | ... |
 
 ### 行动建议
 - **立即安装**:总分 > 8 且无风险横幅
