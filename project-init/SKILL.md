@@ -59,7 +59,7 @@ test -f ./项目开发日志.md && echo "ALREADY_IN_PROJECT"
 ls ./Prompt-*.md /Users/sunshaocong/Desktop/Prompt-*.md 2>/dev/null
 
 # 3. 桌面已有项目编号(排除 00 和 99)
-ls -d "/Users/sunshaocong/Desktop/MacBookpro备份内容/"[0-9][0-9]_* 2>/dev/null \
+ls -d "/Users/sunshaocong/Desktop/韶聪workspace/"[0-9][0-9]_* 2>/dev/null \
   | grep -vE '/(00|99)_' | sort
 ```
 
@@ -112,9 +112,9 @@ ls -d "/Users/sunshaocong/Desktop/MacBookpro备份内容/"[0-9][0-9]_* 2>/dev/nu
 ### A3. 写日志(直接拷贝 ai-os 模板填空)
 
 ```bash
-mkdir -p "/Users/sunshaocong/Desktop/MacBookpro备份内容/XX_项目名"
+mkdir -p "/Users/sunshaocong/Desktop/韶聪workspace/XX_项目名"
 cp /Users/sunshaocong/.ai-os/project-templates/project-development-log-template.md \
-   "/Users/sunshaocong/Desktop/MacBookpro备份内容/XX_项目名/项目开发日志.md"
+   "/Users/sunshaocong/Desktop/韶聪workspace/XX_项目名/项目开发日志.md"
 ```
 
 然后用 Edit 在日志里填空:
@@ -259,13 +259,13 @@ _sandbox/
 ```
 ✅ 项目骨架已建好
 
-📁 项目路径:/Users/sunshaocong/Desktop/MacBookpro备份内容/XX_项目名
+📁 项目路径:/Users/sunshaocong/Desktop/韶聪workspace/XX_项目名
 📄 上下文入口:项目开发日志.md
 📦 已生成:[列出生成的文件]
 
 🚀 在新会话粘贴这条指令开干:
 
-请先读 /Users/sunshaocong/Desktop/MacBookpro备份内容/XX_项目名/项目开发日志.md,
+请先读 /Users/sunshaocong/Desktop/韶聪workspace/XX_项目名/项目开发日志.md,
 然后按里面的「未开始」列表给我下一步建议。
 
 🔧 想补建 / 刷新这个项目时,cd 进项目目录再次调用 project-init。
