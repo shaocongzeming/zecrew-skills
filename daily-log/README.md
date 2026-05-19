@@ -35,12 +35,12 @@
 - 是否存在 `项目开发日志.md`
 - 项目路径和项目日志链接
 
-### 3. MacBookpro备份内容轻量扫描
+### 3. 韶聪workspace轻量扫描
 
 默认会轻量扫描:
 
 ```text
-/Users/sunshaocong/Desktop/MacBookpro备份内容
+/Users/sunshaocong/Desktop/韶聪workspace
 ```
 
 只看顶层/二层近期文件和目录,用于发现:
@@ -73,6 +73,28 @@
 - 按重要性把新增线索合并到对应章节
 - 只有用户明确要求「整理成最终版」时才做重排
 
+### 6. 周/月回顾(读已写日记找规律)
+
+当用户说「本周复盘」「月度回顾」「看看这周日记有什么规律」「分析下我最近的日记」时进入本模式。
+
+和模式 1-5 的本质区别:**1-5 是写入,6 是读取与发现**。
+
+- 输入是用户**已经写过**的日记原始文本(`Daily-Logs/YYYY/*.md`),不是 git commit、不是文件清单。
+- 任务是发现:情绪模式、反复出现的关键词与焦虑触发、自我感知与事实的偏差,而不是补写流水。
+- 报告默认存到 `Daily-Logs/weekly-reviews/YYYY-MM-DD_to_YYYY-MM-DD.md`。
+- 如果命中日志 < 3 天,会提示原始素材太少,不会用 git commit 拼凑替代 —— 因为「如果连原始材料都是 AI 写的,那 AI 帮你做回顾就成了 AI 在读自己写的东西」。
+
+### 7. 手动补充区保真
+
+skill 在任何写入模式下,都对用户口述/写入的「想法 / 决策 / 明天接着做 / 感悟」等手动区原文保留:
+
+- 不重写、不润色、不「结论先行」重排
+- 即使句子不通顺、有错别字、情绪化、前后矛盾也照原样留
+- 最多只去掉纯口癖(「嗯嗯啊啊」)
+- 结论先行的规范只适用于自动采集区(commit 摘要、文件清单、扫描说明)
+
+日记的价值是真实,不是文笔。AI 润色过的不是录音,是翻唱。
+
 ## 触发方式
 
 - "写今天日志"
@@ -82,7 +104,8 @@
 - "补写昨天日志"
 - "补 2026-05-17 的日志"
 - "全局扫描一下再更新日志"
-- "daily log"
+- "本周复盘"、"月度回顾"、"看看这周日记有什么规律"、"分析下我最近的日记"
+- "daily log"、"weekly review"、"monthly review"
 
 ## 默认输出
 
@@ -92,7 +115,8 @@
 ├── 2026/
 │   ├── 2026-05-17.md
 │   └── ...
-└── weekly-reviews/
+└── weekly-reviews/      # 周/月回顾报告(模式 6 输出)
+    └── 2026-05-12_to_2026-05-19.md
 ```
 
 `projects-index.md` 是授权扫描清单,每行一个项目路径:
@@ -100,9 +124,9 @@
 ```markdown
 # 活跃项目
 
-- /Users/sunshaocong/Desktop/MacBookpro备份内容/孙韶聪个人skills
-- /Users/sunshaocong/Desktop/MacBookpro备份内容/03_一起AA吧/yiqi-aa
-- /Users/sunshaocong/Desktop/MacBookpro备份内容/04_英语学习工具/english-learner
+- /Users/sunshaocong/Desktop/韶聪workspace/孙韶聪个人skills
+- /Users/sunshaocong/Desktop/韶聪workspace/03_一起AA吧/yiqi-aa
+- /Users/sunshaocong/Desktop/韶聪workspace/04_英语学习工具/english-learner
 - ~/Projects/project-a
 ```
 
@@ -123,7 +147,8 @@
 - 后台自动监控电脑
 - 替代 ai-os 记忆系统
 - 替代项目级 `项目开发日志.md`
-- weekly review / 月度复盘
+- 在用户没有原始日记时凭空"生成"日记内容 —— skill 不为用户代写主观经历
+- 用 AI 润色用户的日记原话 —— 手动补充区一律保真
 - 记录敏感客户资料、账号、密码、token
 - 自动上传、同步或发布日志
 
@@ -139,16 +164,16 @@
 ## 项目进展
 ### 孙韶聪个人skills
 - `882d99e` feat: add daily log skill
-- 详情见: /Users/sunshaocong/Desktop/MacBookpro备份内容/孙韶聪个人skills
+- 详情见: /Users/sunshaocong/Desktop/韶聪workspace/孙韶聪个人skills
 
 ## 工作区新增/修改
-- `/Users/sunshaocong/Desktop/MacBookpro备份内容/公众号文章/` 出现多篇 `.docx` 草稿
+- `/Users/sunshaocong/Desktop/韶聪workspace/公众号文章/` 出现多篇 `.docx` 草稿
 
 ## 想法
 - [手动补充]
 
 ## 自动采集说明
-- 扫描范围: projects-index.md 授权项目 + MacBookpro备份内容顶层近期文件/目录 + Downloads 顶层当天文件
+- 扫描范围: projects-index.md 授权项目 + 韶聪workspace顶层近期文件/目录 + Downloads 顶层当天文件
 - 生成时间: 2026-05-17 07:30
 ```
 
@@ -182,8 +207,13 @@ rsync -a --delete daily-log/ ~/.agents/skills/daily-log/
 
 ## 更新日志
 
+- **v3**(2026-05-19)
+  - 新增「手动补充区保真」核心原则:用户口述/写入内容原文保留,不重写不润色不"结论先行",最多去口癖。结论先行规范只适用于自动采集区。
+  - 新增工作流模式 6「周/月回顾」:读已写日记找规律(情绪模式 / 反复关键词与焦虑触发 / 自我感知与事实偏差),输入必须是用户已写的日记原文,不允许用 git commit 拼凑替代。报告默认存到 `Daily-Logs/weekly-reviews/`。
+  - 灵感来自数字生命卡兹克《AI 时代,为什么我极力推荐你开始写日记》对 AI 润色和回顾用法的论述。
+
 - **v2**(2026-05-17)
-  - 增加 `MacBookpro备份内容` 顶层/二层轻量扫描
+  - 增加 `韶聪workspace` 顶层/二层轻量扫描
   - 增加「全局扫描」模式,可在用户明确授权时扫描 ai-os、Codex/Claude skill 安装目录和 git 子仓库
   - 增加 `工作区新增/修改` 日志章节
   - 修正一起AA示例路径为 `03_一起AA吧/yiqi-aa`
