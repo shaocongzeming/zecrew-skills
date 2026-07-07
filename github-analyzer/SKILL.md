@@ -31,7 +31,13 @@ allowed-tools: Bash Read Write WebSearch Agent AskUserQuestion
 
 你正在执行一次 GitHub 项目分析。目标:**帮用户判断「这个项目对我有没有用、值不值得花时间装/学/抄」**。
 
-最终产物是一份持久化的报告,落到 `/Users/sunshaocong/Desktop/韶聪workspace/00_全局资产/github-analyses/`,长期积累形成用户的开源工具知识库。
+最终产物是一份持久化的报告,落到 `$ANALYSES_DIR/`,长期积累形成用户的开源工具知识库。
+
+> **配置(首次使用可改)**:报告目录和工作区根目录用环境变量表示,缺省值如下。想换位置就 `export` 或直接改本文件:
+> ```bash
+> : "${WORKSPACE_ROOT:=$HOME/workspace}"       # 你的项目工作区根(用于评估互补性,可无)
+> : "${ANALYSES_DIR:=$HOME/github-analyses}"   # 分析报告知识库存放目录
+> ```
 
 ---
 
@@ -46,11 +52,11 @@ gh auth status >/dev/null 2>&1 && echo "GH_OK" || echo "GH_MISSING"
 # 2. 用户工具环境(用于评估互补性)
 ls ~/.claude/skills/ 2>/dev/null
 ls ~/.claude/agents/ 2>/dev/null
-cat /Users/sunshaocong/.ai-os/skills/_SKILL_INDEX.md 2>/dev/null
-ls -d "/Users/sunshaocong/Desktop/韶聪workspace/"[0-9][0-9]_* 2>/dev/null | grep -vE '/(00|99)_'
+cat $HOME/.ai-os/skills/_SKILL_INDEX.md 2>/dev/null
+ls -d "$WORKSPACE_ROOT/"[0-9][0-9]_* 2>/dev/null | grep -vE '/(00|99)_'
 
 # 3. 历史分析报告
-ls "/Users/sunshaocong/Desktop/韶聪workspace/00_全局资产/github-analyses/" 2>/dev/null
+ls "$ANALYSES_DIR/" 2>/dev/null
 
 # 4. 当前项目上下文(如有)
 test -f ./项目开发日志.md && head -20 ./项目开发日志.md
@@ -179,7 +185,7 @@ curl -s "https://api.github.com/repos/{owner}/{repo}" | jq '...'
 对每个待分析的项目,先查:
 
 ```bash
-ls "/Users/sunshaocong/Desktop/韶聪workspace/00_全局资产/github-analyses/" \
+ls "$ANALYSES_DIR/" \
   2>/dev/null | grep -i "{owner}-{repo}"
 ```
 
@@ -405,14 +411,14 @@ ls "/Users/sunshaocong/Desktop/韶聪workspace/00_全局资产/github-analyses/"
 
 写报告到:
 ```
-/Users/sunshaocong/Desktop/韶聪workspace/00_全局资产/github-analyses/YYYY-MM-DD-{owner}-{repo}.md
+$ANALYSES_DIR/YYYY-MM-DD-{owner}-{repo}.md
 ```
 
 目录不存在先 `mkdir -p`。
 
 同步维护 INDEX 文件:
 ```
-/Users/sunshaocong/Desktop/韶聪workspace/00_全局资产/github-analyses/INDEX.md
+$ANALYSES_DIR/INDEX.md
 ```
 
 格式:

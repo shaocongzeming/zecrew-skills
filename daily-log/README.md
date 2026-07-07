@@ -24,7 +24,7 @@
 支持写今天、补昨天、补指定日期,默认输出到:
 
 ```text
-/Users/sunshaocong/Desktop/Daily-Logs/YYYY/YYYY-MM-DD.md
+$LOG_ROOT/YYYY/YYYY-MM-DD.md
 ```
 
 ### 2. 项目索引驱动
@@ -35,12 +35,12 @@
 - 是否存在 `项目开发日志.md`
 - 项目路径和项目日志链接
 
-### 3. 韶聪workspace轻量扫描
+### 3. 工作区轻量扫描
 
 默认会轻量扫描:
 
 ```text
-/Users/sunshaocong/Desktop/韶聪workspace
+$WORK_ROOT
 ```
 
 只看顶层/二层近期文件和目录,用于发现:
@@ -56,11 +56,11 @@
 当用户明确说「全局扫描一下」「全局扫描最近几天再更新日志」时,会额外轻量扫描:
 
 ```text
-/Users/sunshaocong/Desktop
-/Users/sunshaocong/.ai-os
-/Users/sunshaocong/.agents/skills
-/Users/sunshaocong/.codex/skills
-/Users/sunshaocong/.claude/skills
+$HOME/Desktop
+$HOME/.ai-os
+$HOME/.agents/skills
+$HOME/.codex/skills
+$HOME/.claude/skills
 ```
 
 全局扫描仍然只看路径、文件名、修改时间、git commit 和 git status 摘要,不读取浏览器历史、聊天记录、系统日志、账号配置或密钥文件。
@@ -110,7 +110,7 @@ skill 在任何写入模式下,都对用户口述/写入的「想法 / 决策 / 
 ## 默认输出
 
 ```text
-/Users/sunshaocong/Desktop/Daily-Logs/
+$LOG_ROOT/
 ├── projects-index.md
 ├── 2026/
 │   ├── 2026-05-17.md
@@ -124,9 +124,9 @@ skill 在任何写入模式下,都对用户口述/写入的「想法 / 决策 / 
 ```markdown
 # 活跃项目
 
-- /Users/sunshaocong/Desktop/韶聪workspace/孙韶聪个人skills
-- /Users/sunshaocong/Desktop/韶聪workspace/03_一起AA吧/yiqi-aa
-- /Users/sunshaocong/Desktop/韶聪workspace/04_英语学习工具/english-learner
+- $WORK_ROOT/个人skills仓库
+- $WORK_ROOT/03_示例项目A
+- $WORK_ROOT/04_示例项目B
 - ~/Projects/project-a
 ```
 
@@ -159,21 +159,21 @@ skill 在任何写入模式下,都对用户口述/写入的「想法 / 决策 / 
 
 ## 今天做了什么
 - 更新个人 skills 仓库,新增 daily-log skill
-- 修正 Daily-Logs,补充一起AA、英语学习工具、SCAME 和 ai-os 相关进展
+- 修正 Daily-Logs,补充多个项目和 ai-os 相关进展
 
 ## 项目进展
-### 孙韶聪个人skills
+### 示例:个人 skills 仓库
 - `882d99e` feat: add daily log skill
-- 详情见: /Users/sunshaocong/Desktop/韶聪workspace/孙韶聪个人skills
+- 详情见: $WORK_ROOT/个人skills仓库
 
 ## 工作区新增/修改
-- `/Users/sunshaocong/Desktop/韶聪workspace/公众号文章/` 出现多篇 `.docx` 草稿
+- `$WORK_ROOT/某内容目录/` 出现多篇 `.docx` 草稿
 
 ## 想法
 - [手动补充]
 
 ## 自动采集说明
-- 扫描范围: projects-index.md 授权项目 + 韶聪workspace顶层近期文件/目录 + Downloads 顶层当天文件
+- 扫描范围: projects-index.md 授权项目 + 工作区顶层近期文件/目录 + Downloads 顶层当天文件
 - 生成时间: 2026-05-17 07:30
 ```
 
@@ -213,10 +213,10 @@ rsync -a --delete daily-log/ ~/.agents/skills/daily-log/
   - 灵感来自数字生命卡兹克《AI 时代,为什么我极力推荐你开始写日记》对 AI 润色和回顾用法的论述。
 
 - **v2**(2026-05-17)
-  - 增加 `韶聪workspace` 顶层/二层轻量扫描
+  - 增加 `工作区` 顶层/二层轻量扫描
   - 增加「全局扫描」模式,可在用户明确授权时扫描 ai-os、Codex/Claude skill 安装目录和 git 子仓库
   - 增加 `工作区新增/修改` 日志章节
-  - 修正一起AA示例路径为 `03_一起AA吧/yiqi-aa`
+  - 修正示例项目路径
   - 明确不读取浏览器历史、聊天记录、系统日志和敏感配置
 
 - **v1**(2026-05-17)

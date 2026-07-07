@@ -5,7 +5,7 @@ description: |
 
   也支持周/月回顾模式:用户说"看看这周我的日记有什么规律"、"做个月度回顾"、"分析下我最近的日记"、"本周复盘"、"weekly review"、"monthly review"时触发。回顾模式的输入是用户已写好的日记原始文本(不是 git commit),任务是发现情绪模式、焦虑触发、自我感知偏差等规律,不是补写新流水。
 
-  适合跨项目全局复盘:按 `projects-index.md` 中授权的项目列表采集当天 git commit 概要、项目开发日志链接、`/Users/sunshaocong/Desktop/韶聪workspace` 顶层近期文件/目录、Downloads 当天新增文件,再生成结构化日志草稿。用户明确要求"全局扫描"时,可额外轻量扫描 ai-os 文件时间线、Codex/Claude skill 安装目录和 韶聪workspace下的 git 子仓库。它不是项目级 `项目开发日志.md` 的替代品:项目细节归项目日志,daily-log 只写全局摘要和链接。
+  适合跨项目全局复盘:按 `projects-index.md` 中授权的项目列表采集当天 git commit 概要、项目开发日志链接、`$WORK_ROOT` 顶层近期文件/目录、Downloads 当天新增文件,再生成结构化日志草稿。用户明确要求"全局扫描"时,可额外轻量扫描 ai-os 文件时间线、Codex/Claude skill 安装目录和 工作区下的 git 子仓库。它不是项目级 `项目开发日志.md` 的替代品:项目细节归项目日志,daily-log 只写全局摘要和链接。
 
   不要用于后台监控、读取浏览器历史、扫描全盘、记录敏感信息、自动上传同步或替代 ai-os 记忆系统。只在用户明确要求写/补/更新每日日志或回顾时触发。
 allowed-tools: Bash Read Write Glob
@@ -17,11 +17,11 @@ allowed-tools: Bash Read Write Glob
 
 核心原则:
 - **用户主动触发**:不做后台监听,不假装全天看着用户。
-- **隐私可控**:默认只扫描 `projects-index.md` 里列出的项目、`/Users/sunshaocong/Desktop/韶聪workspace` 顶层近期文件/目录、`~/Downloads` 顶层当天新增文件。只有用户明确说"全局扫描"时,才启用扩展扫描。
+- **隐私可控**:默认只扫描 `projects-index.md` 里列出的项目、`$WORK_ROOT` 顶层近期文件/目录、`~/Downloads` 顶层当天新增文件。只有用户明确说"全局扫描"时,才启用扩展扫描。
 - **全局摘要优先**:项目细节留给各项目的 `项目开发日志.md`;每日日志只写一句话进展和链接。
 - **不覆盖手写内容**:已有日志保留原文,新线索追加到对应章节或补充区。
 - **手动补充区保真**:用户口述/写入的"想法 / 决策 / 明天接着做 / 感悟"等手动区,原文保留,不重写、不润色、不"结论先行"。最多只去掉纯口癖("嗯嗯啊啊"),即使句子不通顺、有错别字、情绪化、前后矛盾也照原样留。结论先行的规范只用于自动采集区(commit 摘要、文件清单、扫描说明)。日记的价值是真实不是文笔——AI 润色过的不是录音,是翻唱。
-- **明文、可迁移**:所有输出都是 Markdown,默认存在 `/Users/sunshaocong/Desktop/Daily-Logs/YYYY/YYYY-MM-DD.md`。
+- **明文、可迁移**:所有输出都是 Markdown,默认存在 `$LOG_ROOT/YYYY/YYYY-MM-DD.md`。
 
 ---
 
@@ -46,12 +46,21 @@ allowed-tools: Bash Read Write Glob
 
 ---
 
+## 配置(首次使用可改)
+
+两个根目录用环境变量表示,缺省值如下;想换位置就在 shell 里 `export` 或直接改本文件:
+
+```bash
+: "${LOG_ROOT:=$HOME/Daily-Logs}"   # 日志存放根目录
+: "${WORK_ROOT:=$HOME/workspace}"   # 你项目/文件最常放的工作区根目录
+```
+
 ## 文件位置
 
 默认日志根目录:
 
 ```text
-/Users/sunshaocong/Desktop/Daily-Logs/
+$LOG_ROOT/
 ├── projects-index.md
 ├── 2026/
 │   ├── 2026-05-17.md
@@ -62,7 +71,7 @@ allowed-tools: Bash Read Write Glob
 默认工作根目录:
 
 ```text
-/Users/sunshaocong/Desktop/韶聪workspace
+$WORK_ROOT
 ```
 
 这个目录是用户最近用 Claude Code / Codex 工作时最常放文件和项目的地方。它只用于轻量发现"今天/最近新建了什么",不要递归深扫具体项目内容。
@@ -70,11 +79,11 @@ allowed-tools: Bash Read Write Glob
 扩展扫描候选目录（仅在用户明确要求全局扫描时启用）:
 
 ```text
-/Users/sunshaocong/Desktop
-/Users/sunshaocong/.ai-os
-/Users/sunshaocong/.agents/skills
-/Users/sunshaocong/.codex/skills
-/Users/sunshaocong/.claude/skills
+$HOME/Desktop
+$HOME/.ai-os
+$HOME/.agents/skills
+$HOME/.codex/skills
+$HOME/.claude/skills
 ```
 
 扩展扫描仍然只看文件路径、文件名、修改时间、git commit 和 git status 摘要；不要读取浏览器历史、聊天记录、系统日志、账号配置、密钥文件或客户隐私数据。
@@ -84,8 +93,8 @@ allowed-tools: Bash Read Write Glob
 ```markdown
 # 活跃项目
 
-- /Users/sunshaocong/Desktop/韶聪workspace/孙韶聪个人skills
-- /Users/sunshaocong/Desktop/韶聪workspace/03_一起AA吧/yiqi-aa
+- $WORK_ROOT/个人skills仓库
+- $WORK_ROOT/03_示例项目
 - ~/Projects/project-a
 ```
 
@@ -95,8 +104,8 @@ allowed-tools: Bash Read Write Glob
 - 支持 `~` 展开。
 - 路径不存在时在日志里列为"待确认",不要报错中止。
 
-如果 `/Users/sunshaocong/Desktop/Daily-Logs/projects-index.md` 不存在:
-1. 创建 `/Users/sunshaocong/Desktop/Daily-Logs/`。
+如果 `$LOG_ROOT/projects-index.md` 不存在:
+1. 创建 `$LOG_ROOT/`。
 2. 写入最小模板,包含当前工作目录作为候选项目。
 3. 告诉用户先补充常用项目路径,本次可继续只扫描当前目录。
 
@@ -109,10 +118,10 @@ allowed-tools: Bash Read Write Glob
 先执行轻量扫描,不要扫全盘:
 
 ```bash
-LOG_ROOT="/Users/sunshaocong/Desktop/Daily-Logs"
+LOG_ROOT="${LOG_ROOT:-$HOME/Daily-Logs}"
 INDEX="$LOG_ROOT/projects-index.md"
 TODAY="$(date +%Y-%m-%d)"
-WORK_ROOT="/Users/sunshaocong/Desktop/韶聪workspace"
+WORK_ROOT="${WORK_ROOT:-$HOME/workspace}"
 ```
 
 读取项目列表后,对每个项目只采集这些信息:
@@ -141,7 +150,7 @@ find "$WORK_ROOT" -maxdepth 2 \
 筛选规则:
 - 重点保留新建项目目录、`.md`、`.docx`、`.pptx`、`.pdf`、`.html`、`.txt`、`.vtt`、`README.md`、`SKILL.md`。
 - 忽略 `.DS_Store`、构建产物、依赖目录、缓存、`node_modules`、`dist`、`.git`。
-- 对于 `公众号文章`、`媒体下载`、`AI网络环境配置`、`孙韶聪个人skills` 这类顶层目录,如果当天有新增文件,在日志中列一条摘要。
+- 对于 `公众号文章`、`媒体下载`、`AI网络环境配置`、`个人skills仓库` 这类顶层目录,如果当天有新增文件,在日志中列一条摘要。
 
 Downloads 只扫顶层当天新增/修改文件:
 
@@ -171,7 +180,7 @@ find "$HOME/.agents/skills" "$HOME/.codex/skills" "$HOME/.claude/skills" \
 - 对 git 仓库先看 `git log` 和 `git status --short` 摘要,不要直接展开阅读业务文件。
 - `~/.ai-os` 只记录哪些规则、记忆、模板或 failure/review 文件被更新;不要改写 ai-os 文件。
 - skill 安装目录只记录安装/同步痕迹,不要把第三方 skill 全文复制进日志。
-- `Desktop` 扫描只看顶层和二层目录,用于发现 `Daily-Logs`、`韶聪workspace` 之外的显著工作痕迹。
+- `Desktop` 扫描只看顶层和二层目录,用于发现 `Daily-Logs`、`工作区` 之外的显著工作痕迹。
 
 注意:
 - 不读取文件内容,只记录文件名和路径。
@@ -183,7 +192,7 @@ find "$HOME/.agents/skills" "$HOME/.codex/skills" "$HOME/.claude/skills" \
 目标文件:
 
 ```text
-/Users/sunshaocong/Desktop/Daily-Logs/YYYY/YYYY-MM-DD.md
+$LOG_ROOT/YYYY/YYYY-MM-DD.md
 ```
 
 目录不存在就创建。日志不存在时,用下面模板生成:
@@ -218,7 +227,7 @@ find "$HOME/.agents/skills" "$HOME/.codex/skills" "$HOME/.claude/skills" \
 - [手动补充]
 
 ## 自动采集说明
-- 扫描范围: projects-index.md 授权项目 + 韶聪workspace顶层近期文件/目录 + Downloads 顶层当天文件
+- 扫描范围: projects-index.md 授权项目 + 工作区顶层近期文件/目录 + Downloads 顶层当天文件
 - 生成时间: YYYY-MM-DD HH:MM
 ```
 
@@ -275,7 +284,7 @@ find "$HOME/.agents/skills" "$HOME/.codex/skills" "$HOME/.claude/skills" \
 **操作步骤**:
 
 1. 确认时间窗。默认本周(周一到今天)或本月,用户可指定 `--since YYYY-MM-DD --until YYYY-MM-DD`。
-2. 列出时间窗内 `/Users/sunshaocong/Desktop/Daily-Logs/YYYY/` 下存在的日志文件。
+2. 列出时间窗内 `$LOG_ROOT/YYYY/` 下存在的日志文件。
 3. 如果命中日志 < 3 天,提示用户原始素材太少,问是否继续;不要硬上。
 4. 读取所有命中日志的全文(尤其手动补充区 —— 想法 / 决策 / 感悟)。自动采集区(commit 列表、文件清单)在回顾里权重低,主要看用户自己说了什么。
 5. 输出固定 4 段回顾报告:
@@ -306,7 +315,7 @@ find "$HOME/.agents/skills" "$HOME/.codex/skills" "$HOME/.claude/skills" \
 - **大量引用日记原文**(短句、加引号),不要复述。
 - 不要把用户原话改写得更"得体" —— 用户说"今天那个煞笔气死我了",回顾里就写"今天那个煞笔气死我了",不改"今天和 X 沟通有些摩擦"。
 - 不要给情绪贴正面/负面的价值判断 —— 只描述模式,不评价。
-- 报告默认存到 `/Users/sunshaocong/Desktop/Daily-Logs/weekly-reviews/YYYY-MM-DD_to_YYYY-MM-DD.md`,目录不存在则创建。
+- 报告默认存到 `$LOG_ROOT/weekly-reviews/YYYY-MM-DD_to_YYYY-MM-DD.md`,目录不存在则创建。
 
 **不要做的事**:
 - 不要从 git commit 反推日记应该写什么。

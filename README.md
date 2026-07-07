@@ -1,70 +1,43 @@
 # shaocong-skills
 
-韶聪的 Claude Code 自定义 Skills 仓库。
+韶聪(shaocong)的 Claude Code 自定义 Skills 仓库。
 
-四个 skill 围绕「用户想法 → AI 工具执行 → 每日复盘」的完整链路:
-
-| 阶段 | 用户状态 | 对应 Skill |
-|------|---------|-----------|
-| 1. 想清楚 | 有想法但说不清,需要先聊明白 | **idea-to-prompt** |
-| 2. 搭骨架 | 想法明确,要建项目 | **project-init** |
-| 3. 评估外部工具 | 想了解 GitHub 上的开源工具 | **github-analyzer** |
-| 4. 每日复盘 | 想记录今天做了什么、想法和项目进展 | **daily-log** |
+**本仓库只收录我自己原创、或我主导的二次创作(标注出处)的 skill。** 第三方 skill 一律不 rehost,只在推荐清单里署原作者 + 给出处。
 
 ## Skills 列表
 
-| Skill | 说明 | 触发方式 |
-|-------|------|----------|
-| [idea-to-prompt](./idea-to-prompt/) | 把模糊想法变成可粘贴给任意 AI 工具(Claude Code / Cursor / Midjourney / Sora / Gamma…)的精确 Prompt。六心法追问 + 四类项目适配 + 三档深度 | "我想做个东西"、"帮我理一下思路"、"我有个想法" |
-| [project-init](./project-init/) | 新项目「上下文入口」搭建。基于 ai-os 落地实践,产物是一份 fresh agent 读完就能上手的「项目开发日志.md」。支持新建/补建/刷新三种模式 | "开始新项目"、"搭项目骨架"、"按这个 prompt 建项目" |
-| [github-analyzer](./github-analyzer/) | GitHub 开源项目分析与评估。多来源识别 + 意图驱动报告 + 量化评分 + 风险横幅 + 批量汇总 + 持久化知识库 | 分享 GitHub 链接/截图,或"帮我看看这个项目" |
-| [daily-log](./daily-log/) | 每日工作日志。按授权项目索引采集当天 git 概要、项目日志链接和 Downloads 顶层新增文件,生成可修改的 Markdown 日志草稿 | "写今天日志"、"今日复盘"、"补写昨天日志" |
+| Skill | 说明 | 归属 |
+|-------|------|------|
+| [idea-to-prompt](./idea-to-prompt/) | 把模糊想法追问成可直接粘贴给任意 AI 工具的精确 Prompt。六心法追问 + 四类项目适配 + 三档深度 | 原创 |
+| [project-init](./project-init/) | 新项目「上下文入口」搭建。产物是一份 fresh agent 读完就能上手的「项目开发日志.md」。新建/补建/刷新三模式 | 原创 |
+| [github-analyzer](./github-analyzer/) | GitHub 开源项目分析与评估。多来源识别 + 意图驱动报告 + 量化评分 + 持久化知识库 | 原创 |
+| [daily-log](./daily-log/) | 每日工作日志。采集当天 git 概要/文件痕迹生成日志草稿,支持周/月回顾找规律 | 原创 |
+| [vault-archive](./vault-archive/) | 结束对话时归档进 Obsidian:对话日志 + 次日日记 + 状态真相源 + 用户画像学习闭环 | 原创 |
+| [digital-employee-forge](./digital-employee-forge/) | 把真实员工蒸馏成"数字分身"skill set,带 L1-L4 证据分级 | **二次创作**(见下) |
 
-## 如何使用
+### 附带资源
+- [`Skill创作SOP.md`](./Skill创作SOP.md) — 《怎么写一个 Claude Code Skill》。基于对多个高星开源 skill 的逆向研究 + Anthropic 官方 Agent Skills 规范整理。
+- [`ai-os-template/`](./ai-os-template/) — 个人 AI 操作系统骨架的**脱敏模板**:一套让 Claude Code + Codex 长期协作的路由 + 协议 + skill 治理 + 失败复盘 + 项目日志机制。占位符填成你自己的即可用。
+- [`推荐给覃朝瑞.md`](./推荐给覃朝瑞.md) — 我常用 skill 的对外推荐清单(含我原创的 + 我推荐的第三方,后者标了原作者出处)。
 
-### 方式一:直接安装到 Claude Code
+## 安装
 
-一次装齐四个 skill:
-
+一键装单个 skill:
 ```bash
-for s in idea-to-prompt project-init github-analyzer daily-log; do
-  mkdir -p ~/.claude/skills/$s
-  curl -o ~/.claude/skills/$s/SKILL.md \
-    https://raw.githubusercontent.com/shaocong1987-collab/shaocong-skills/main/$s/SKILL.md
-done
+s=project-init
+mkdir -p ~/.claude/skills/$s
+curl -sL "https://raw.githubusercontent.com/shaocong1987-collab/shaocong-skills/main/$s/SKILL.md" \
+  -o ~/.claude/skills/$s/SKILL.md
 ```
 
-只装单个:
+> 部分 skill 顶部有「配置」块,用 `$WORKSPACE_ROOT` / `$LOG_ROOT` / `$AI_OS_HOME` 等变量表示路径,默认值在 `~/` 下。装完按你自己的目录改一次即可。
 
-```bash
-mkdir -p ~/.claude/skills/idea-to-prompt
-curl -o ~/.claude/skills/idea-to-prompt/SKILL.md \
-  https://raw.githubusercontent.com/shaocong1987-collab/shaocong-skills/main/idea-to-prompt/SKILL.md
-```
+## 归属与致谢
 
-### 方式二:Claude Code 自动识别
-
-在你的 Claude Code 会话中,直接告诉 Claude:
-
-> "帮我安装 shaocong-skills 仓库里的 idea-to-prompt skill"
-
-Claude 会自动下载并配置。
-
-## 设计原则
-
-三个 skill 之间互相**让位不撞触发**:
-
-- `idea-to-prompt` 让位给 `brainstorming`(git repo + 软件 feature 改动场景)
-- `idea-to-prompt` 让位给 `project-init`(已有 Prompt 文件 + 开始建项目)
-- `project-init` 自动接力 `idea-to-prompt`(检测到 `Prompt-*.md` 自动只问差量)
-- `project-init` 跟内置 `/init` 划清(`/init` 只建 CLAUDE.md,本 skill 建整套骨架)
-
-详见每个 skill 的 SKILL.md description 里的 `MUST 不触发` 段落。
-
-## 贡献
-
-这是个人技能仓库,如有建议欢迎提 Issue。
+- 标「原创」的 skill 由我(shaocong)独立编写。
+- **digital-employee-forge 是二次创作**:它把 `cangjie` / `nuwa`(花叔) / `anyone` / `darwin·EvoSkill` / `skill-eval` 等社区 skill 的核心机制,编排成一条面向真实企业员工的蒸馏产线。底层机制的功劳属于这些原作者,本 skill 仅原创"产线化编排"这一层。部分来源仓库仍在核实,详见各自 README 与 `推荐给覃朝瑞.md`。**欢迎原作者认领补全出处。**
+- `ai-os-template` 中的编码准则源自 [multica-ai/andrej-karpathy-skills](https://github.com/multica-ai/andrej-karpathy-skills)。
 
 ## License
 
-MIT
+MIT(见 [LICENSE](./LICENSE))。原创部分随便用随便改;二次创作部分请一并尊重上游原作者。

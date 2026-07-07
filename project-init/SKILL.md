@@ -38,7 +38,20 @@ description: |
 
 你的核心交付物**不是文件夹**,是一份「项目开发日志.md」——fresh agent 进入项目时,读完它就能直接开干。其他文件(CLAUDE.md / AGENTS.md / README / 目录结构)都是这份日志的辅助。
 
-ai-os 标准加载组合是 `INDEX.md + 项目开发日志.md`(见 `/Users/sunshaocong/.ai-os/INDEX.md` 第 29 行)。你的产物必须让这个组合成立。
+ai-os 标准加载组合是 `INDEX.md + 项目开发日志.md`(见 `$AI_OS_HOME/INDEX.md`)。你的产物必须让这个组合成立。
+
+## 配置(首次使用,按你的机器改一次)
+
+本 skill 用两个环境变量表示根目录,缺省值如下。第一次用前在 shell 里 `export`,或直接改这里:
+
+```bash
+: "${WORKSPACE_ROOT:=$HOME/workspace}"   # 你所有项目的父目录,项目会建在它下面(形如 $WORKSPACE_ROOT/XX_项目名)
+: "${AI_OS_HOME:=$HOME/.ai-os}"          # ai-os 全局协议 + 项目模板所在目录
+```
+
+> project-init 依赖 ai-os 的项目模板 `$AI_OS_HOME/project-templates/project-development-log-template.md`。
+> 没装 ai-os 的话,用本仓库 `ai-os-template/` 里的模板,或把 `AI_OS_HOME` 指过去。
+> 命令里统一用 `$WORKSPACE_ROOT` / `$AI_OS_HOME`(shell 会展开成绝对路径),不要用裸 `~`(Codex 可能不解析)。
 
 <HARD-GATE>
 在「冷启动模拟」通过之前,不要宣告交付完成。
@@ -56,10 +69,10 @@ ai-os 标准加载组合是 `INDEX.md + 项目开发日志.md`(见 `/Users/sunsh
 test -f ./项目开发日志.md && echo "ALREADY_IN_PROJECT"
 
 # 2. cwd 或 ~/Desktop 是否有 Prompt-*.md(idea-to-prompt 的输出)
-ls ./Prompt-*.md /Users/sunshaocong/Desktop/Prompt-*.md 2>/dev/null
+ls ./Prompt-*.md "$HOME/Desktop/"Prompt-*.md 2>/dev/null
 
-# 3. 桌面已有项目编号(排除 00 和 99)
-ls -d "/Users/sunshaocong/Desktop/韶聪workspace/"[0-9][0-9]_* 2>/dev/null \
+# 3. 工作区已有项目编号(排除 00 和 99)
+ls -d "$WORKSPACE_ROOT/"[0-9][0-9]_* 2>/dev/null \
   | grep -vE '/(00|99)_' | sort
 ```
 
@@ -112,9 +125,9 @@ ls -d "/Users/sunshaocong/Desktop/韶聪workspace/"[0-9][0-9]_* 2>/dev/null \
 ### A3. 写日志(直接拷贝 ai-os 模板填空)
 
 ```bash
-mkdir -p "/Users/sunshaocong/Desktop/韶聪workspace/XX_项目名"
-cp /Users/sunshaocong/.ai-os/project-templates/project-development-log-template.md \
-   "/Users/sunshaocong/Desktop/韶聪workspace/XX_项目名/项目开发日志.md"
+mkdir -p "$WORKSPACE_ROOT/XX_项目名"
+cp "$AI_OS_HOME/project-templates/project-development-log-template.md" \
+   "$WORKSPACE_ROOT/XX_项目名/项目开发日志.md"
 ```
 
 然后用 Edit 在日志里填空:
@@ -189,7 +202,7 @@ XX_项目名/
 ```markdown
 # 项目:[项目名] — Claude 协议
 
-> 全局协议:`/Users/sunshaocong/.ai-os/CLAUDE.md` + `/Users/sunshaocong/.ai-os/shared-protocol.md`
+> 全局协议:`$AI_OS_HOME/CLAUDE.md` + `$AI_OS_HOME/shared-protocol.md`
 > 加载预算:读完「项目开发日志.md」后无需再加载 ai-os,除非涉及权限 / 合规 / 高风险
 
 ## 项目专属覆盖(项目级 > 全局级)
@@ -202,7 +215,7 @@ XX_项目名/
 ```markdown
 # 项目:[项目名] — Codex 协议
 
-> 全局协议:`/Users/sunshaocong/.ai-os/AGENTS.md` + `/Users/sunshaocong/.ai-os/shared-protocol.md`
+> 全局协议:`$AI_OS_HOME/AGENTS.md` + `$AI_OS_HOME/shared-protocol.md`
 > 加载预算:读完「项目开发日志.md」后无需再加载 ai-os
 
 ## 项目专属执行规则
@@ -259,13 +272,13 @@ _sandbox/
 ```
 ✅ 项目骨架已建好
 
-📁 项目路径:/Users/sunshaocong/Desktop/韶聪workspace/XX_项目名
+📁 项目路径:$WORKSPACE_ROOT/XX_项目名
 📄 上下文入口:项目开发日志.md
 📦 已生成:[列出生成的文件]
 
 🚀 在新会话粘贴这条指令开干:
 
-请先读 /Users/sunshaocong/Desktop/韶聪workspace/XX_项目名/项目开发日志.md,
+请先读 $WORKSPACE_ROOT/XX_项目名/项目开发日志.md,
 然后按里面的「未开始」列表给我下一步建议。
 
 🔧 想补建 / 刷新这个项目时,cd 进项目目录再次调用 project-init。
@@ -298,10 +311,10 @@ cwd 已是项目根,日志的「最后更新」距今 > 30 天(或用户主动�
 ## 设计原则(行为约束)
 
 1. **日志是 source of truth**,目录从日志的「项目目录地图」拍出来,二者不可漂移
-2. **官方模板不二次创作**:直接 `cp /Users/sunshaocong/.ai-os/project-templates/project-development-log-template.md`
+2. **官方模板不二次创作**:直接 `cp "$AI_OS_HOME/project-templates/project-development-log-template.md"`
 3. **默认极简**:除日志外所有文件 opt-in
 4. **项目级协议文件 ≤ 20 行**:只做"路径指向 + 加载预算 + 覆盖项"
-5. **绝对路径**:`/Users/sunshaocong/.ai-os/...`,不用 `~`(Codex 可能不解析)
+5. **路径用可展开的变量**:`$AI_OS_HOME/...`、`$WORKSPACE_ROOT/...`(shell 会展开成绝对路径),不用裸 `~`(Codex 可能不解析)
 6. **接力 idea-to-prompt**:有 Prompt-*.md 就只问差量
 7. **冷启动模拟当门槛**:三问不过不交付
 8. **补建 / 刷新跨生命周期**:不只 day 1 用得到
@@ -315,7 +328,7 @@ cwd 已是项目根,日志的「最后更新」距今 > 30 天(或用户主动�
 - [ ] 「当前项目原则」「当前功能状态」「开发和验证命令」三节有具体内容(不全 `[待补充]`)
 - [ ] 冷启动模拟三问全过
 - [ ] 项目级 CLAUDE.md / AGENTS.md(若生成)各 ≤ 20 行
-- [ ] 全局规则引用用绝对路径(不用 `~`)
+- [ ] 全局规则引用用 `$AI_OS_HOME` / `$WORKSPACE_ROOT`(不用裸 `~`)
 - [ ] opt-in 文件确实是用户确认要的,不是默认全建
 - [ ] 编号扫描排除了 00 和 99
 - [ ] 给出了「新会话粘贴指令」
