@@ -17,7 +17,7 @@
 | [github-analyzer](./github-analyzer/) | GitHub 开源项目分析与评估。多来源识别 + 意图驱动报告 + 量化评分 + 持久化知识库 | 原创 |
 | [daily-log](./daily-log/) | 每日工作日志。采集当天 git 概要/文件痕迹生成日志草稿,支持周/月回顾找规律 | 原创 |
 | [vault-archive](./vault-archive/) | 结束对话时归档进 Obsidian:对话日志 + 次日日记 + 状态真相源 + 用户画像学习闭环 | 原创 |
-| [digital-employee-forge](./digital-employee-forge/) | 把真实员工蒸馏成"数字分身"skill set,带 L1-L4 证据分级 | **二次创作**(见下) |
+| [digital-employee-forge](./digital-employee-forge/) | 把真实员工的经验带教成"数字分身"skill set,带 L1-L4 证据分级 | **二次创作**(见下) |
 | [Zecrew-document-skills](./Zecrew-document-skills/) | 生产级 docx/pdf/pptx/xlsx 文档技能套件:场景化 briefs + 环境自检 + judge 视觉验收 agent。设计思想受 Anthropic Agent Skills 启发,全部自研重写 | 自研 |
 
 ### 附带资源
@@ -40,7 +40,7 @@ curl -sL "https://raw.githubusercontent.com/shaocongzeming/zecrew-skills/main/$s
 ## 归属与致谢
 
 - 标「原创」的 skill 由我(shaocong)独立编写。
-- **digital-employee-forge 是二次创作**:它把 `cangjie` / `nuwa`(花叔) / `anyone` / `darwin·EvoSkill` / `skill-eval` 等社区 skill 的核心机制,编排成一条面向真实企业员工的蒸馏产线。底层机制的功劳属于这些原作者,本 skill 仅原创"产线化编排"这一层。部分来源仓库仍在核实,详见各自 README 与 `推荐给覃朝瑞.md`。**欢迎原作者认领补全出处。**
+- **digital-employee-forge 是二次创作**:它把 `cangjie` / `nuwa`(花叔) / `anyone` / `darwin·EvoSkill` / `skill-eval` 等社区 skill 的核心机制,编排成一条面向真实企业员工的带教产线。底层机制的功劳属于这些原作者,本 skill 仅原创"产线化编排"这一层。部分来源仓库仍在核实,详见各自 README 与 `推荐给覃朝瑞.md`。**欢迎原作者认领补全出处。**
 - `ai-os-template` 中的编码准则源自 [multica-ai/andrej-karpathy-skills](https://github.com/multica-ai/andrej-karpathy-skills)。
 
 ## License

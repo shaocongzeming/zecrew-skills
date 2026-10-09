@@ -27,7 +27,7 @@
   <text x="288" y="172" font-family="ui-sans-serif, -apple-system, 'Helvetica Neue', Arial, sans-serif" font-size="52" font-weight="800" fill="url(#accent)" letter-spacing="6">ZECREW</text>
   <text x="290" y="212" font-family="ui-monospace, 'SF Mono', Menlo, monospace" font-size="20" font-weight="600" fill="#e6edf3" letter-spacing="12">SKILLS</text>
   <line x1="290" y1="236" x2="588" y2="236" stroke="url(#accent)" stroke-width="1.5" stroke-opacity="0.5"/>
-  <text x="290" y="266" font-family="ui-sans-serif, -apple-system, 'PingFang SC', 'Microsoft YaHei', sans-serif" font-size="15" fill="#8b949e">Claude Code Agent Skills · 数字员工蒸馏</text>
+  <text x="290" y="266" font-family="ui-sans-serif, -apple-system, 'PingFang SC', 'Microsoft YaHei', sans-serif" font-size="15" fill="#8b949e">Claude Code Agent Skills · 数字员工带教</text>
   <text x="290" y="292" font-family="ui-sans-serif, -apple-system, 'PingFang SC', 'Microsoft YaHei', sans-serif" font-size="15" fill="#8b949e">文档生产 · 项目脚手架</text>
 
   <!-- 026 数字员工 · 真实界面渲染 -->
