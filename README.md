@@ -1,8 +1,8 @@
 # shaocong-skills
 
-韶聪(shaocong)的 Claude Code 自定义 Skills 仓库。
+北京韶聪泽明智能科技有限责任公司([Zecrew](https://zecrew.com))的 Claude Code 自定义 Skills 仓库。
 
-**本仓库只收录我自己原创、或我主导的二次创作(标注出处)的 skill。** 第三方 skill 一律不 rehost,只在推荐清单里署原作者 + 给出处。
+**本仓库只收录 Zecrew 原创或主导的二次创作(标注出处)的 skill。** 第三方 skill 一律不 rehost,只在推荐清单里署原作者 + 给出处。
 
 ## Skills 列表
 
@@ -18,7 +18,7 @@
 ### 附带资源
 - [`Skill创作SOP.md`](./Skill创作SOP.md) — 《怎么写一个 Claude Code Skill》。基于对多个高星开源 skill 的逆向研究 + Anthropic 官方 Agent Skills 规范整理。
 - [`ai-os-template/`](./ai-os-template/) — 个人 AI 操作系统骨架的**脱敏模板**:一套让 Claude Code + Codex 长期协作的路由 + 协议 + skill 治理 + 失败复盘 + 项目日志机制。占位符填成你自己的即可用。
-- [`推荐给覃朝瑞.md`](./推荐给覃朝瑞.md) — 我常用 skill 的对外推荐清单(含我原创的 + 我推荐的第三方,后者标了原作者出处)。
+- [`推荐给覃朝瑞.md`](./推荐给覃朝瑞.md) — Zecrew 常用 skill 的对外推荐清单(含原创的 + 推荐的第三方,后者标了原作者出处)。
 
 ## 安装
 
@@ -41,3 +41,15 @@ curl -sL "https://raw.githubusercontent.com/shaocong1987-collab/shaocong-skills/
 ## License
 
 MIT(见 [LICENSE](./LICENSE))。原创部分随便用随便改;二次创作部分请一并尊重上游原作者。
+
+---
+
+<div align="center">
+
+**北京韶聪泽明智能科技有限责任公司 · Zecrew**
+
+垂直行业 AI 数字员工
+
+🌐 [zecrew.com](https://zecrew.com)
+
+</div>
