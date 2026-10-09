@@ -1,4 +1,4 @@
-# shaocong-skills
+# zecrew-skills
 
 北京韶聪泽明智能科技有限责任公司([Zecrew](https://zecrew.com))的 Claude Code 自定义 Skills 仓库。
 
@@ -14,6 +14,7 @@
 | [daily-log](./daily-log/) | 每日工作日志。采集当天 git 概要/文件痕迹生成日志草稿,支持周/月回顾找规律 | 原创 |
 | [vault-archive](./vault-archive/) | 结束对话时归档进 Obsidian:对话日志 + 次日日记 + 状态真相源 + 用户画像学习闭环 | 原创 |
 | [digital-employee-forge](./digital-employee-forge/) | 把真实员工蒸馏成"数字分身"skill set,带 L1-L4 证据分级 | **二次创作**(见下) |
+| [Zecrew-document-skills](./Zecrew-document-skills/) | 生产级 docx/pdf/pptx/xlsx 文档技能套件:场景化 briefs + 环境自检 + judge 视觉验收 agent。设计思想受 Anthropic Agent Skills 启发,全部自研重写 | 自研 |
 
 ### 附带资源
 - [`Skill创作SOP.md`](./Skill创作SOP.md) — 《怎么写一个 Claude Code Skill》。基于对多个高星开源 skill 的逆向研究 + Anthropic 官方 Agent Skills 规范整理。
@@ -26,7 +27,7 @@
 ```bash
 s=project-init
 mkdir -p ~/.claude/skills/$s
-curl -sL "https://raw.githubusercontent.com/shaocong1987-collab/shaocong-skills/main/$s/SKILL.md" \
+curl -sL "https://raw.githubusercontent.com/shaocong1987-collab/zecrew-skills/main/$s/SKILL.md" \
   -o ~/.claude/skills/$s/SKILL.md
 ```
 

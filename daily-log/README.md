@@ -182,7 +182,7 @@ $LOG_ROOT/
 ```bash
 mkdir -p ~/.claude/skills/daily-log
 curl -o ~/.claude/skills/daily-log/SKILL.md \
-  https://raw.githubusercontent.com/shaocong1987-collab/shaocong-skills/main/daily-log/SKILL.md
+  https://raw.githubusercontent.com/shaocong1987-collab/zecrew-skills/main/daily-log/SKILL.md
 ```
 
 Codex 可复制到:

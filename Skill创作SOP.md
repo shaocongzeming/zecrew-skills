@@ -1097,7 +1097,7 @@ Skill 数量直接影响触发准确率。实验数据：
 主版本    ~/your-skills-repo/{name}/  ← 日常主要修改位置 + git 工作树
    ├─ rsync → Codex 版       ~/.agents/skills/{name}/
    ├─ rsync → Claude Code 版 ~/.claude/skills/{name}/
-   └─ git push → GitHub      github.com/shaocong1987-collab/shaocong-skills
+   └─ git push → GitHub      github.com/shaocong1987-collab/zecrew-skills
 ```
 
 ### 11.1 三层关系
@@ -1215,13 +1215,13 @@ Skill创作SOP.md
 # 装单个 skill
 mkdir -p ~/.claude/skills/my-skill
 curl -o ~/.claude/skills/my-skill/SKILL.md \
-  https://raw.githubusercontent.com/shaocong1987-collab/shaocong-skills/main/my-skill/SKILL.md
+  https://raw.githubusercontent.com/shaocong1987-collab/zecrew-skills/main/my-skill/SKILL.md
 
 # 装齐所有 skill
 for s in idea-to-prompt project-init github-analyzer; do
   mkdir -p ~/.claude/skills/$s
   curl -o ~/.claude/skills/$s/SKILL.md \
-    https://raw.githubusercontent.com/shaocong1987-collab/shaocong-skills/main/$s/SKILL.md
+    https://raw.githubusercontent.com/shaocong1987-collab/zecrew-skills/main/$s/SKILL.md
 done
 ```
 

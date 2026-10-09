@@ -94,7 +94,7 @@ Claude Code + 微信小程序原生
 ```bash
 mkdir -p ~/.claude/skills/idea-to-prompt
 curl -o ~/.claude/skills/idea-to-prompt/SKILL.md \
-  https://raw.githubusercontent.com/shaocong1987-collab/shaocong-skills/main/idea-to-prompt/SKILL.md
+  https://raw.githubusercontent.com/shaocong1987-collab/zecrew-skills/main/idea-to-prompt/SKILL.md
 ```
 
 ## 配合使用
