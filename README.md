@@ -1,6 +1,6 @@
 # zecrew-skills
 
-韶聪泽明([Zecrew](https://zecrew.com))的 Claude Code Agent Skills 仓库。
+韶聪泽明([班底 Zecrew](https://zecrew.shaocongzeming.com))的 Claude Code Agent Skills 仓库。
 
 **本仓库只收录 Zecrew 原创或主导的二次创作(标注出处)的 skill。** 第三方 skill 一律不 rehost,只在推荐清单里署原作者 + 给出处。
 
@@ -51,8 +51,10 @@ MIT(见 [LICENSE](./LICENSE))。原创部分随便用随便改;二次创作部�
 
 北京韶聪泽明智能科技有限责任公司
 
-数字员工 · 企业 AI 落地服务 · FDE
+企业数字员工 · 企业 AI 落地服务 · FDE
 
-🌐 [zecrew.com](https://zecrew.com) · 📮 [sunshaocong@shaocongzeming.com](mailto:sunshaocong@shaocongzeming.com)
+WaytoAGI 模数OPC 社区
+
+官网 [zecrew.shaocongzeming.com](https://zecrew.shaocongzeming.com) · 邮箱 [sunshaocong@shaocongzeming.com](mailto:sunshaocong@shaocongzeming.com)
 
 </div>
