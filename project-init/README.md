@@ -85,7 +85,7 @@
 ```bash
 mkdir -p ~/.claude/skills/project-init
 curl -o ~/.claude/skills/project-init/SKILL.md \
-  https://raw.githubusercontent.com/shaocong1987-collab/zecrew-skills/main/project-init/SKILL.md
+  https://raw.githubusercontent.com/shaocongzeming/zecrew-skills/main/project-init/SKILL.md
 ```
 
 ## 配合使用

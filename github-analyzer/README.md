@@ -150,7 +150,7 @@ GitHub 开源项目分析与评估 Skill。当你在博客 / 微博 / 小红书 
 ```bash
 mkdir -p ~/.claude/skills/github-analyzer
 curl -o ~/.claude/skills/github-analyzer/SKILL.md \
-  https://raw.githubusercontent.com/shaocong1987-collab/zecrew-skills/main/github-analyzer/SKILL.md
+  https://raw.githubusercontent.com/shaocongzeming/zecrew-skills/main/github-analyzer/SKILL.md
 ```
 
 ## 配合使用
