@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="assets/banner.svg" width="640" alt="Zecrew Skills — Claude Code Agent Skills · 026 数字员工真实界面" />
+  <img src="assets/banner.svg" width="520" alt="Zecrew Skills — Claude Code Agent Skills · 026 数字员工真实界面" />
 </div>
 
 # zecrew-skills
