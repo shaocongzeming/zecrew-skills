@@ -1,3 +1,7 @@
+<div align="center">
+  <img src="assets/banner.svg" width="88%" alt="Zecrew Skills — Claude Code Agent Skills" />
+</div>
+
 # zecrew-skills
 
 韶聪泽明([班底 Zecrew](https://zecrew.shaocongzeming.com))的 Claude Code Agent Skills 仓库。
